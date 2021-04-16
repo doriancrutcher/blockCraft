@@ -1,0 +1,1 @@
+/Users/doriankinoocrutcher/Documents/blockheads/blockCraft/blockCraft/contract/target/wasm32-unknown-unknown/release/greeter.wasm: /Users/doriankinoocrutcher/Documents/blockheads/blockCraft/blockCraft/contract/src/lib.rs

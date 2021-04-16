@@ -1,0 +1,8 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: calc(0.9em + 0.5vw);
+  line-height: 1.3;
+}
