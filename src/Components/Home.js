@@ -97,6 +97,12 @@ const Home = (props) => {
             );
           })}
         </Row>
+        <Row
+          style={{ marginTop: "10px", fontSize: "10px" }}
+          className='justify-content-center d-flex align-items-center'
+        >
+          Not affiliated with Mojang
+        </Row>
       </Container>
     </div>
   );
