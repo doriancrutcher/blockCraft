@@ -8,23 +8,20 @@ const { place_block } = require("mineflayer");
 
 const stoneBlock = new Block(1, 1, 0);
 
-console.log(stoneBlock);
-
 const Item = require("prismarine-item")("1.8");
 
 const ironShovelItem = new Item(256, 1);
 
 const notchItem = Item.toNotch(ironShovelItem);
-console.log(notchItem);
 
 // console.log(Item.fromNotch(notchItem));
 
 // console.log(ironShovelItem);
 
-console.log(Object.keys(new Item()));
-
 let Set1;
 let Set2;
+let BlockInfo;
+let BuildingPositionArray = [];
 
 let bot,
   stringTo,
@@ -62,7 +59,7 @@ const Jessica = mineflayer.createBot({
 });
 const Jerry = mineflayer.createBot({
   host: "localhost",
-  port: "56734",
+  port: "59403",
   username: "Jerry",
 });
 
@@ -226,6 +223,24 @@ Jerry.on("chat", (username, message) => {
     Jerry.chat(Ref1);
     Jerry.chat(Ref2);
   }
+
+  if (args[0] === "show") {
+    BuildingInfo.forEach((x) => console.log(x));
+  }
+
+  if (args[0] === "recreate") {
+    console.log(Jerry.entity.position);
+    let JerryX = Jerry.entity.position[0];
+    let JerryY = Jerry.entity.position[1];
+    let JerryZ = Jerry.entity.position[2];
+
+    if (
+      BuildingPositionArray[BuildingPositionArray.length - 1][2] >
+      BuildingPositionArray[0][2]
+    ) {
+      console.log("last element is greater than first");
+    }
+  }
 });
 
 Jerry.on("chat", (username, message) => {
@@ -269,6 +284,83 @@ Jerry.on("chat", (username, message) => {
     let MaxBuildLength = y2 - y1;
     let MaxBuildHeight = z2 - z1;
 
+    console.log(`Min Vals ${x1}${y1}${z1}`);
+    console.log(`Max Vals ${x2}${y2}${z2}`);
+    console.log("conditional statement ", z2 > z1);
+    console.log("end condition val", Math.abs(z2 - z1) + 1);
+
+    if (z2 > z1) {
+      console.log("z is true");
+
+      for (let z = 0; z < Math.abs(z2 - z1) + 1; z++) {
+        console.log("z val is", z);
+        if (y2 > y1) {
+          for (let y = 0; y < Math.abs(y2 - y1) + 1; y++) {
+            console.log("y val is", y);
+
+            if (x2 > x1) {
+              for (let x = 0; x < Math.abs(x2 - x1) + 1; x++) {
+                console.log("x val is", x);
+
+                console.log("yo");
+                BuildingPositionArray.push(new Vec3(x1 + x, y1 + y, z1 + z));
+              }
+            } else {
+              for (let x = 0; x++; z < x1 - x2) {
+                BuildingPositionArray.push(new Vec3(x2 + x, y1 + y, z1 + z));
+              }
+            }
+          }
+        } else {
+          for (let y = 0; y < Math.abs(y1 - y2) + 1; y++) {
+            if (x2 > x1) {
+              for (let x = 0; x < Math.abs(x2 - x1) + 1; x++) {
+                BuildingPositionArray.push(new Vec3(x1 + x, y2 + y, z1 + z));
+              }
+            } else {
+              for (let x = 0; x < Math.abs(x1 - x2) + 1; x++) {
+                BuildingPositionArray.push(new Vec3(x2 + x, y2 + y, z1 + z));
+              }
+            }
+          }
+        }
+      }
+    } else {
+      for (let z = 0; z < Math.abs(z1 - z2) + 1; z++) {
+        if (y2 > y1) {
+          for (let y = 0; y < Math.abs(y2 - y1) + 1; y++) {
+            if (x2 > x1) {
+              for (let x = 0; x < Math.abs(x2 - x1) + 1; x++) {
+                BuildingPositionArray.push(new Vec3(x1 + x, y1 + y, z2 + z));
+              }
+            } else {
+              for (let x = 0; x < Math.abs(x1 - x2) + 1; x++) {
+                BuildingPositionArray.push(new Vec3(x2 + x, y1 + y, z2 + z));
+              }
+            }
+          }
+        } else {
+          for (let y = 0; y < Math.abs(y1 - y2) + 1; y++) {
+            if (x2 > x1) {
+              for (let x = 0; x < Math.abs(x2 - x1) + 1; x++) {
+                BuildingPositionArray.push(new Vec3(x1 + x, y2 + y, z2 + z));
+              }
+            } else {
+              for (let x = 0; x < Math.abs(x1 - x2) + 1; x++) {
+                BuildingPositionArray.push(new Vec3(x2 + x, y2 + y, z2 + z));
+              }
+            }
+          }
+        }
+      }
+    }
+
+    BlockInfo = BuildingPositionArray.map((x) => {
+      let BlockObject = Jerry.blockAt(x);
+      return BlockObject.name;
+    });
+
+    console.log(BlockInfo);
     //The building copy will be broken up layer by layer
 
     Jerry.chat(

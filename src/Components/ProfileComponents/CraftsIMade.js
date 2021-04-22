@@ -4,7 +4,7 @@ import { Carousel } from "react-bootstrap";
 
 const CraftsIMade = (props) => {
   return (
-    <Carousel style={{ width: "80vw" }}>
+    <Carousel style={{ width: "80vw", mar}}>
       {props.stuffIMade.map((x) => {
         return (
           <Carousel.Item>
