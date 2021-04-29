@@ -25,6 +25,12 @@ let Set1;
 let Set2;
 let BlockInfo;
 let BuildingPositionArray = [];
+let MaxX;
+let MaxY;
+let MaxZ;
+let MinX;
+let MinY;
+let MinZ;
 
 // Support function
 const sleep = (seconds) =>
@@ -37,7 +43,7 @@ const Jessica = mineflayer.createBot({
 });
 const Jerry = mineflayer.createBot({
   host: "localhost",
-  port: "62161",
+  port: "55545",
   username: "Jerry",
 });
 
@@ -52,6 +58,7 @@ const followPlayer = () => {
 
   if (!playerCI) {
     Jerry.chat(`Dor Dor? Where are you? :(`);
+    d;
   } else {
     `${Object.keys(playerCI)}`;
     `${Object.keys(playerCI.entity)}`;
@@ -109,7 +116,6 @@ Jerry.on("spawn", async () => {
   const mcData = require("minecraft-data")(Jerry.version);
   const cobbleStoneId = mcData.itemsByName.cobblestone.id;
   cobbleStoneId;
-  Jerry.chat("run");
 });
 
 Jerry.on("rain", () => {
@@ -348,6 +354,8 @@ Jerry.on("chat", async (username, message) => {
         let changeX = Vec3Array.x + XDifference;
         let changeY = Vec3Array.y + YDifference;
         let changeZ = Vec3Array.z + ZDifference;
+        MinY = LowestY;
+        MinX = LowestX;
 
         Vec3Array.x = changeX;
         Vec3Array.y = changeY;
@@ -397,27 +405,86 @@ Jerry.on("chat", async (username, message) => {
     Jerry.pathfinder.setMovements(movement);
 
     //workzone
-
+    Jerry.creative.startFlying();
     for (let i = 0; i < CorrectionArray.length; i++) {
-      await sleep(0.01);
-      console.log(CorrectionArray);
-      let offset = CorrectionArray[i];
-      offset.y = CorrectionArray[i].y - 1;
-      // let offset = Jerry.entity.position.offset(0, -1, 0);
-      let refBlock = Jerry.blockAt(offset);
-
-      JerryPosition = Jerry.entity.position;
-      JX = CorrectionArray[i].x;
-      JY = CorrectionArray[i].y;
-      JZ = CorrectionArray[i].z;
-
-      Jerry.entity.position = new Vec3(JX, JY + 3, JZ);
-      once(Jerry, "move");
-      await sleep(0.1);
+      Jerry.chat(BlockInfo[i]);
       if (BlockInfo[i] !== "air") {
+        if (BlockInfo[i] !== Jerry.entity.heldItem.name) {
+          let itemName = mcData.itemsByName[BlockInfo[i]];
+          await Jerry.equip(itemName.id, "hand");
+          await sleep(0.05);
+        }
+        // if (BlockInfo[i] !== "air") {
+        //   let itemName = mcData.itemsByName[BlockInfo[i]];
+        //   Jerry.equip(itemName.id, "hand");
+        // }
+        await sleep(0.1);
+        console.log(CorrectionArray);
+        let offset = CorrectionArray[i];
+        offset.y = CorrectionArray[i].y;
+        // let offset = Jerry.entity.position.offset(0, -1, 0);
+        let refBlock = Jerry.blockAt(offset);
+
+        JerryPosition = Jerry.entity.position;
+        JX = CorrectionArray[i].x;
+        JY = CorrectionArray[i].y;
+        JZ = CorrectionArray[i].z;
+
+        JerryX = JerryPosition.x;
+        JerryY = JerryPosition.y;
+        JerryZ = JerryPosition.z;
+
+        DiffX = JerryX - JX;
+        DiffY = JerryY - JY;
+        DiffZ = JerryZ - JZ;
+
+        if (Math.abs(DiffY) > 10) {
+          Jerry.chat("correcting");
+          Jerry.chat(DiffY);
+          Jerry.chat(JerryX - MinX);
+
+          Jerry.entity.position = new Vec3(
+            CorrectionArray[0].x + 4,
+            JerryY,
+            JerryZ - 3
+          );
+          JerryX = Jerry.entity.position.x;
+          JerryZ = Jerry.entity.position.z;
+          // console.warn(Jerry.entity.position);
+          await sleep(0.5);
+
+          once(Jerry, "move");
+          for (let correct = 0; correct < Math.abs(DiffY) - 1; correct++) {
+            Jerry.chat(DiffY);
+
+            Jerry.entity.position = new Vec3(
+              JerryX,
+              JerryY - correct,
+              CorrectionArray[i].z
+            );
+
+            await sleep(0.1);
+
+            once(Jerry, "move");
+            JerryY = JerryPosition.y;
+
+            Jerry.chat("my y" + JerryY);
+            DiffY = JerryY - JY;
+            Jerry.chat("I want" + DiffY);
+          }
+          await sleep(0.5);
+          Jerry.entity.position = new Vec3(JerryX, MinY, JerryZ);
+          once(Jerry, "move");
+        }
+
+        Jerry.entity.position = new Vec3(JX, JY + 2, JZ);
+
+        await sleep(0.1);
+
         Jerry.placeBlock(refBlock, offset);
       }
     }
+    Jerry.creative.stopFlying();
   }
 
   if (args[0] === "whereJerry") {
@@ -434,18 +501,21 @@ Jerry.on("chat", async (username, message) => {
     console.log("old", Jerry.entity.position);
     let JerryY = Jerry.entity.position.y;
     let JerryZ = Jerry.entity.position.z;
+    let JerryX = Jerry.entity.position.x;
     let arr = [1, 2, 3];
-    for (i = 0; i < 3; i++) {
-      await sleep(2);
-      let JerryX = Jerry.entity.position.x + i;
+    // for (i = 0; i < 3; i++) {
+    //   await sleep(2);
+    //   let JerryX = Jerry.entity.position.x + i;
 
-      //-35 4 -168
-      // -37 4 -168
-      // -36 6 -171
-      Jerry.entity.position = new Vec3(-36, 6 + 1, -171);
+    //   //-35 4 -168
+    //   // -37 4 -168
+    //   // -36 6 -171
+    //   Jerry.entity.position = new Vec3(-36, 6 + 1, -171);
 
-      console.log(await once(Jerry, "move"));
-    }
+    //   console.log(await once(Jerry, "move"));
+    // }
+    Jerry.entity.position = new Vec3(JerryX + 10, JerryY, JerryZ);
+    console.log(await once(Jerry, "move"));
   }
 });
 
@@ -488,6 +558,29 @@ Jerry.on("chat", (username, message) => {
     let MaxBuildWidth = x2 - x1;
     let MaxBuildLength = y2 - y1;
     let MaxBuildHeight = z2 - z1;
+
+    if (x1 > x2) {
+      MaxX = x1;
+      MinX = x2;
+    } else {
+      MaxX = x2;
+      MinX = x1;
+    }
+    if (x1 > x2) {
+      MaxX = x1;
+      MinX = x2;
+    } else {
+      MaxX = x2;
+      MinX = x1;
+    }
+    if (x1 > x2) {
+      MaxX = x1;
+      MinX = x2;
+    } else {
+      MaxX = x2;
+      MinX = x1;
+    }
+
     // console.log("----------------");
     // console.log(`${x1} ${x2}`);
     // console.log(`${y1} ${y2}`);
