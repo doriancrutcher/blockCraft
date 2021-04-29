@@ -6,6 +6,7 @@ const GoalFollow = goals.GoalFollow;
 const GoalBlock = goals.GoalBlock;
 const { place_block } = require("mineflayer");
 const { once } = require("events");
+const inventoryViewer = require("mineflayer-web-inventory");
 
 // const windows = require("./")("1.8");
 
@@ -25,6 +26,7 @@ let Set1;
 let Set2;
 let BlockInfo;
 let BuildingPositionArray = [];
+let uniqueItems = [];
 let MaxX;
 let MaxY;
 let MaxZ;
@@ -46,6 +48,29 @@ const Jerry = mineflayer.createBot({
   port: "55545",
   username: "Jerry",
 });
+
+const mcData = require("minecraft-data")(Jerry.version);
+
+const reloadFunction = async (count, uniqueItemsArr) => {
+  console.log("start Reload");
+  let desiredItem = Jerry.mcData.itemsByName[uniqueItems[count]];
+  if (desiredItem !== undefined) {
+    if (desiredItem.id !== 0) {
+      console.log(desiredItem.name);
+      await Jerry.creative.setInventorySlot(
+        36 + count,
+        new Item(desiredItem.id, 64),
+        () => {}
+      );
+    }
+  }
+  console.log("reload set");
+  if (count < uniqueItemsArr.length) {
+    reloadFunction(count + 1, uniqueItemsArr);
+  }
+};
+
+inventoryViewer(Jerry);
 
 Jerry.loadPlugin(pathfinder);
 
@@ -72,6 +97,17 @@ const followPlayer = () => {
 
   const goal = new GoalFollow(playerCI.entity, 1);
   Jerry.pathfinder.setGoal(goal, true);
+};
+
+const setItem = async (num, qty) => {
+  console.log("called");
+  await sleep(0.4);
+  await Jerry.creative.setInventorySlot(36, new Item(num, qty + 1));
+
+  if (num < 5) {
+    setItem(num + 1 + 1, 5);
+  }
+  console.log("finished");
 };
 
 const goAway = () => {
@@ -253,15 +289,23 @@ Jerry.on("chat", async (username, message) => {
 
   if (args[0] === "equip") {
     const Item = require("prismarine-item")("1.8");
-    Jerry.mcData.findItemOrBlockByName("iron_shovel").id;
 
-    const ironShovelItem = new Item(599, 1);
-    ironShovelItem;
-    Jerry.equip(Jerry.mcData.findItemOrBlockByName("iron_shovel").id, "hand");
+    // Jerry.creative.setInventorySlot(36, new Item(9, 10));
+
+    await setItem(1, 3);
+
+    // arr.forEach(async (x) => {
+    //   let run = true;
+    //   await sleep(5);
+    //   let id = x;
+    //   console.log(x);
+
+    //   await setItem(x, 3);
+    // });
   }
 
   if (args[0] === "build") {
-    // ("the offset is ");
+    // ("the offset is ");tp
 
     setTimeout(async () => {
       let offsetVal = Jerry.entity.position.offset(0, -1, 0);
@@ -404,21 +448,47 @@ Jerry.on("chat", async (username, message) => {
 
     Jerry.pathfinder.setMovements(movement);
 
+    const getItemInHand = async (itemIWant) => {
+      Jerry.chat("I'll look again");
+      Jerry.equip(itemIWant.id, "hand", () => {
+        Jerry.equip(1, "hand");
+      });
+      console.log("I'm holding", Jerry.heldItem.name);
+      t;
+      console.log("I want ", itemIWant.name);
+      if (Jerry.heldItem.name !== itemIWant.name) {
+        getItemInHand(itemIWant);
+      } else {
+        Jerry.chat("wait I found it");
+        await sleep(0.5);
+      }
+    };
+
     //workzone
     Jerry.creative.startFlying();
     for (let i = 0; i < CorrectionArray.length; i++) {
-      Jerry.chat(BlockInfo[i]);
+      if (i % 64 === 0 || i === 0) {
+        await reloadFunction(0, uniqueItems);
+      }
       if (BlockInfo[i] !== "air") {
         if (BlockInfo[i] !== Jerry.entity.heldItem.name) {
+          await sleep(0.5);
+
           let itemName = mcData.itemsByName[BlockInfo[i]];
-          await Jerry.equip(itemName.id, "hand");
+          Jerry.chat(itemName.name);
+          Jerry.chat(itemName.name);
+          Jerry.equip(itemName.id, "hand", () => {
+            Jerry.chat("can't get that boss");
+            getItemInHand(itemName);
+          });
+
           await sleep(0.05);
         }
         // if (BlockInfo[i] !== "air") {
         //   let itemName = mcData.itemsByName[BlockInfo[i]];
         //   Jerry.equip(itemName.id, "hand");
         // }
-        await sleep(0.1);
+        await sleep(0.01);
         console.log(CorrectionArray);
         let offset = CorrectionArray[i];
         offset.y = CorrectionArray[i].y;
@@ -472,7 +542,7 @@ Jerry.on("chat", async (username, message) => {
             DiffY = JerryY - JY;
             Jerry.chat("I want" + DiffY);
           }
-          await sleep(0.5);
+          await sleep(0.2);
           Jerry.entity.position = new Vec3(JerryX, MinY, JerryZ);
           once(Jerry, "move");
         }
@@ -497,6 +567,10 @@ Jerry.on("chat", async (username, message) => {
     Jerry.chat(`My Z ${Z}`);
   }
 
+  if (args[0] === "clearInventory") {
+    Jerry.inventory.clear(1, 10);
+  }
+
   if (args[0] === "step") {
     console.log("old", Jerry.entity.position);
     let JerryY = Jerry.entity.position.y;
@@ -519,7 +593,7 @@ Jerry.on("chat", async (username, message) => {
   }
 });
 
-Jerry.on("chat", (username, message) => {
+Jerry.on("chat", async (username, message) => {
   const args = message.split(" ");
 
   if (args[0] === "Set1") {
@@ -558,6 +632,7 @@ Jerry.on("chat", (username, message) => {
     let MaxBuildWidth = x2 - x1;
     let MaxBuildLength = y2 - y1;
     let MaxBuildHeight = z2 - z1;
+    const mcData = require("minecraft-data")(Jerry.version);
 
     if (x1 > x2) {
       MaxX = x1;
@@ -659,6 +734,16 @@ Jerry.on("chat", (username, message) => {
     BlockInfo;
     BuildingPositionArray;
     //The building copy will be broken up layer by layer
+
+    const unique = (value, index, self) => {
+      return self.indexOf(value) === index;
+    };
+
+    uniqueItems = BlockInfo.filter(unique);
+
+    Jerry.chat(`there are ${uniqueItems.length} unique items in this build`);
+
+    await reloadFunction(0, uniqueItems);
 
     Jerry.chat(
       `The build area dimensions are W: ${MaxBuildWidth} x L: ${MaxBuildLength} x H: ${MaxBuildHeight}`
