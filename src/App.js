@@ -22,6 +22,8 @@ import Home from "./Components/Home";
 import Profile from "./Components/Profile";
 import SignInPage from "./Components/SignInPage";
 import getConfig from "./config";
+import PlashapeLogo from "./assets/PlashapeLogo.png";
+
 import { async } from "regenerator-runtime/runtime";
 const { networkId } = getConfig(process.env.NODE_ENV || "development");
 
@@ -31,7 +33,9 @@ export default function App() {
     <div>
       <Router>
         <Navbar bg='light' expand='lg'>
-          <Navbar.Brand href='/'>BlockCraft</Navbar.Brand>
+          <Navbar.Brand href='/'>
+            Plashape <img style={{ width: "3vh" }} src={PlashapeLogo}></img>
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='mr-auto'>

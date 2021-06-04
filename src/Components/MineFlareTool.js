@@ -1,6 +1,7 @@
 const mineflayer = require("mineflayer");
 const Block = require("prismarine-block")("1.8");
 const Vec3 = require("vec3").Vec3;
+const LZUTF8 = require("lzutf8");
 const { pathfinder, Movements, goals } = require("mineflayer-pathfinder");
 const GoalFollow = goals.GoalFollow;
 const GoalBlock = goals.GoalBlock;
@@ -45,7 +46,7 @@ const Jessica = mineflayer.createBot({
 });
 const Jerry = mineflayer.createBot({
   host: "localhost",
-  port: "55545",
+  port: "49418",
   username: "Jerry",
 });
 
@@ -371,6 +372,13 @@ Jerry.on("chat", async (username, message) => {
     BuildingInfo.forEach((x) => x);
   }
 
+  if (args[0] === "mint") {
+    // check registry for user
+    // Jerry will check for captured blueprints
+    // Jerry will then submit blueprints for now directly to the blockchain (for now thinking of more efficient means for storage)
+    // User will then get redirected to the website for form fillout
+  }
+
   if (args[0] === "recreate") {
     const mcData = require("minecraft-data")(Jerry.version);
     Jerry.entity.position;
@@ -472,7 +480,7 @@ Jerry.on("chat", async (username, message) => {
       }
       if (BlockInfo[i] !== "air") {
         if (BlockInfo[i] !== Jerry.entity.heldItem.name) {
-          await sleep(0.5);
+          await sleep(1);
 
           let itemName = mcData.itemsByName[BlockInfo[i]];
           Jerry.chat(itemName.name);
@@ -482,13 +490,13 @@ Jerry.on("chat", async (username, message) => {
             getItemInHand(itemName);
           });
 
-          await sleep(0.05);
+          await sleep(0.1);
         }
         // if (BlockInfo[i] !== "air") {
         //   let itemName = mcData.itemsByName[BlockInfo[i]];
         //   Jerry.equip(itemName.id, "hand");
         // }
-        await sleep(0.01);
+        await sleep(0.05);
         console.log(CorrectionArray);
         let offset = CorrectionArray[i];
         offset.y = CorrectionArray[i].y;
@@ -728,7 +736,8 @@ Jerry.on("chat", async (username, message) => {
     BlockInfo = BuildingPositionArray.map((x) => {
       Jerry.blockAt;
       let BlockObject = Jerry.blockAt(x);
-      return BlockObject.name;
+      console.log(BlockObject);
+      return BlockObject.id;
     });
 
     BlockInfo;

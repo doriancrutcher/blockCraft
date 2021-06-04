@@ -4,10 +4,10 @@ import { Carousel } from "react-bootstrap";
 
 const CraftsIMade = (props) => {
   return (
-    <Carousel style={{ width: "80vw", mar}}>
-      {props.stuffIMade.map((x) => {
+    <Carousel style={{ width: "80vw" }}>
+      {props.stuffIMade.map((x, i) => {
         return (
-          <Carousel.Item>
+          <Carousel.Item key={i}>
             <img className='d-block w-100' src={x} alt='First slide' />
             <Carousel.Caption style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
               <h3>Villager Apartment</h3>

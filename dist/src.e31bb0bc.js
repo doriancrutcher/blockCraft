@@ -76932,6 +76932,8 @@ var _default = NFTCard;
 exports.default = _default;
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js"}],"assets/villager_Apartment.png":[function(require,module,exports) {
 module.exports = "/villager_Apartment.3f7c5eb9.png";
+},{}],"assets/PlashapeLogo.png":[function(require,module,exports) {
+module.exports = "/PlashapeLogo.88fe6dbb.png";
 },{}],"Components/Home.js":[function(require,module,exports) {
 "use strict";
 
@@ -76950,6 +76952,8 @@ var _NFTCard = _interopRequireDefault(require("./NFTCard"));
 
 var _villager_Apartment = _interopRequireDefault(require("../assets/villager_Apartment.png"));
 
+var _PlashapeLogo = _interopRequireDefault(require("../assets/PlashapeLogo.png"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
@@ -76957,7 +76961,7 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 const Home = props => {
-  const [funPhrases, changeFunPhrase] = (0, _react.useState)(["How do you make a circle out of cubes?", "Cure a zombie villager and make a new friend!", "Mints taste good! But this is a different kind of mint...", "Create your dreams and the dreams of others!", "We need a heart emoji made of squares"]);
+  const [funPhrases, changeFunPhrase] = (0, _react.useState)(["How do you make a circle out of cubes?", "Cure a zombie villager and make a new friend!", "Mints taste good! But this is a different kind of mint...", "Create your dreams and the dreams of others!", "Create, Build, Mint!"]);
   const backGroundStyling = {
     backgroundImage: `url("https://cdn.vox-cdn.com/thumbor/tOwRguKr-dcwmSZAvaw-2z50LpU=/0x0:1801x884/1820x1213/filters:focal(749x21:1037x309):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/66547009/Minecraft_Horizontal_Key_Art.0.jpg")`,
     backgroundRepeat: `no-repeat`,
@@ -76985,7 +76989,6 @@ const Home = props => {
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     style: {
       width: "100%",
-      backgroundColor: "rgba(0,0,0,0.5)",
       padding: "1vh",
       marginBottom: "0"
     },
@@ -76994,18 +76997,24 @@ const Home = props => {
     style: {
       color: "white"
     }
-  }, "BlockCraft")), " ", /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+  }, /*#__PURE__*/_react.default.createElement("img", {
     style: {
-      width: "100%",
-      backgroundColor: "rgba(0,0,0,0.5)",
-      marginTop: "0"
+      width: "20vh"
+    },
+    src: _PlashapeLogo.default
+  }))), " ", /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "d-flex justify-content-center align-items-center",
+    style: {
+      width: "60vw",
+      backgroundColor: "#E7DAC0",
+      textAlign: "center",
+      justifyContent: "center",
+      color: "black",
+      padding: "10px",
+      borderRadius: "10px"
     },
     className: "d-flex justify-content-center align-items-center"
-  }, /*#__PURE__*/_react.default.createElement("p", {
-    style: {
-      color: "white"
-    }
-  }, funPhrases[Math.floor(Math.random() * funPhrases.length)]))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+  }, funPhrases[Math.floor(Math.random() * funPhrases.length)])), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "justify-content-center d-flex align-items-center"
   }, tokenArray.map((x, index) => {
     return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
@@ -77026,12 +77035,18 @@ const Home = props => {
       price: x.price,
       image: x.imgURL
     }));
-  }))));
+  })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    style: {
+      marginTop: "10px",
+      fontSize: "10px"
+    },
+    className: "justify-content-center d-flex align-items-center"
+  }, "Not affiliated with Mojang")));
 };
 
 var _default = Home;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./NFTCard":"Components/NFTCard.js","../assets/villager_Apartment.png":"assets/villager_Apartment.png"}],"Components/ProfileComponents/CraftsIBought.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./NFTCard":"Components/NFTCard.js","../assets/villager_Apartment.png":"assets/villager_Apartment.png","../assets/PlashapeLogo.png":"assets/PlashapeLogo.png"}],"Components/ProfileComponents/CraftsIBought.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -77052,8 +77067,10 @@ const CraftsIBought = props => {
     style: {
       width: "80vw"
     }
-  }, props.stuffIBought.map(x => {
-    return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Carousel.Item, null, /*#__PURE__*/_react.default.createElement("img", {
+  }, props.stuffIBought.map((x, i) => {
+    return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Carousel.Item, {
+      key: i
+    }, /*#__PURE__*/_react.default.createElement("img", {
       className: "d-block w-100",
       src: x,
       alt: "First slide"
@@ -77093,8 +77110,10 @@ const CraftsIMade = props => {
     style: {
       width: "80vw"
     }
-  }, props.stuffIMade.map(x => {
-    return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Carousel.Item, null, /*#__PURE__*/_react.default.createElement("img", {
+  }, props.stuffIMade.map((x, i) => {
+    return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Carousel.Item, {
+      key: i
+    }, /*#__PURE__*/_react.default.createElement("img", {
       className: "d-block w-100",
       src: x,
       alt: "First slide"
@@ -77888,7 +77907,9 @@ const Profile = props => {
 Profile.propTypes = {};
 var _default = Profile;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","./ProfileComponents/CraftsIBought":"Components/ProfileComponents/CraftsIBought.js","./ProfileComponents/CraftsIMade":"Components/ProfileComponents/CraftsIMade.js","./ProfileComponents/TwitchCard":"Components/ProfileComponents/TwitchCard.js","../assets/villager_Apartment.png":"assets/villager_Apartment.png","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js"}],"Components/SignInPage.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","./ProfileComponents/CraftsIBought":"Components/ProfileComponents/CraftsIBought.js","./ProfileComponents/CraftsIMade":"Components/ProfileComponents/CraftsIMade.js","./ProfileComponents/TwitchCard":"Components/ProfileComponents/TwitchCard.js","../assets/villager_Apartment.png":"assets/villager_Apartment.png","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js"}],"assets/Rectangle4.svg":[function(require,module,exports) {
+module.exports = "/Rectangle4.cb503457.svg";
+},{}],"Components/SignInPage.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -77902,36 +77923,49 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _reactBootstrap = require("react-bootstrap");
 
+var _Rectangle = _interopRequireDefault(require("../assets/Rectangle4.svg"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const SignInPage = props => {
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
-    className: "d-flex justify-content-center align-items-center",
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
     style: {
-      marginTop: "5vh",
-      backgroundImage: "url(https://wallpaperaccess.com/full/171177.jpg)",
+      backgroundImage: `url(${_Rectangle.default})`,
       backgroundSize: "cover",
-      backgroundRepeat: "no-repeat",
-      backgroundPosition: "center",
-      height: "25vh"
+      backgroundPosition: "5% 40vh",
+      height: "100vh",
+      backgroundRepeat: "no-repeat"
     }
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "d-flex justify-content-center align-items-center",
     style: {
-      backgroundColor: "rgba(0,0,0,0.7)",
-      color: "white",
-      width: "100%",
-      height: "7vh",
-      fontSize: "5vh"
+      marginTop: "5vh",
+      // backgroundImage: "url(https://wallpaperaccess.com/full/171177.jpg)",
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center",
+      height: "10vh"
     }
-  }, " ", "Welcome!")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "d-flex justify-content-center align-items-center",
+    style: {
+      width: "40vw",
+      fontSize: "4vw",
+      backgroundColor: "#E7DAC0",
+      textAlign: "center",
+      justifyContent: "center",
+      padding: "",
+      borderRadius: "10px",
+      color: "white"
+    }
+  }, "Welcome!", " ")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "d-flex justify-content-center",
     style: {
-      marginTop: "5vh"
+      marginTop: "2vh"
     }
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card, {
     style: {
-      width: "18rem"
+      width: "20rem"
     }
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Title, null, "Enter Profile Info"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Subtitle, {
     className: "mb-2 text-muted"
@@ -77949,13 +77983,13 @@ const SignInPage = props => {
     className: "text-muted"
   }, "Enter the name of your glorious creation"))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "d-flex justify-content-center"
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, null, "Submit!"))))))));
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, null, "Submit!")))))))));
 };
 
 SignInPage.propTypes = {};
 var _default = SignInPage;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js"}],"App.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../assets/Rectangle4.svg":"assets/Rectangle4.svg"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -77987,6 +78021,8 @@ var _SignInPage = _interopRequireDefault(require("./Components/SignInPage"));
 
 var _config = _interopRequireDefault(require("./config"));
 
+var _PlashapeLogo = _interopRequireDefault(require("./assets/PlashapeLogo.png"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
@@ -78006,7 +78042,12 @@ function App() {
     expand: "lg"
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar.Brand, {
     href: "/"
-  }, "BlockCraft"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar.Toggle, {
+  }, "Plashape ", /*#__PURE__*/_react.default.createElement("img", {
+    style: {
+      width: "3vh"
+    },
+    src: _PlashapeLogo.default
+  })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar.Toggle, {
     "aria-controls": "basic-navbar-nav"
   }), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar.Collapse, {
     id: "basic-navbar-nav"
@@ -78041,7 +78082,7 @@ function App() {
     signedInName: window.accountId
   })))));
 }
-},{"regenerator-runtime/runtime":"../node_modules/regenerator-runtime/runtime.js","react":"../node_modules/react/index.js","./utils":"utils.js","./global.css":"global.css","./scss/App.scss":"scss/App.scss","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./Components/Mint":"Components/Mint.js","./Components/Home":"Components/Home.js","./Components/Profile":"Components/Profile.js","./Components/SignInPage":"Components/SignInPage.js","./config":"config.js"}],"index.js":[function(require,module,exports) {
+},{"regenerator-runtime/runtime":"../node_modules/regenerator-runtime/runtime.js","react":"../node_modules/react/index.js","./utils":"utils.js","./global.css":"global.css","./scss/App.scss":"scss/App.scss","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./Components/Mint":"Components/Mint.js","./Components/Home":"Components/Home.js","./Components/Profile":"Components/Profile.js","./Components/SignInPage":"Components/SignInPage.js","./config":"config.js","./assets/PlashapeLogo.png":"assets/PlashapeLogo.png"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -78085,7 +78126,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55611" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59510" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

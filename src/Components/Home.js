@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import NFTCard from "./NFTCard";
 import VillagerApt from "../assets/villager_Apartment.png";
+import PlashapeLogo from "../assets/PlashapeLogo.png";
 
 const Home = (props) => {
   const [funPhrases, changeFunPhrase] = useState([
@@ -10,7 +11,7 @@ const Home = (props) => {
     "Cure a zombie villager and make a new friend!",
     "Mints taste good! But this is a different kind of mint...",
     "Create your dreams and the dreams of others!",
-    "We need a heart emoji made of squares",
+    "Create, Build, Mint!",
   ]);
 
   const backGroundStyling = {
@@ -48,25 +49,29 @@ const Home = (props) => {
         <Row
           style={{
             width: "100%",
-            backgroundColor: "rgba(0,0,0,0.5)",
             padding: "1vh",
             marginBottom: "0",
           }}
           className='d-flex justify-content-center align-items-center'
         >
-          <h1 style={{ color: "white" }}>BlockCraft</h1>
+          <h1 style={{ color: "white" }}>
+            <img style={{ width: "20vh" }} src={PlashapeLogo}></img>
+          </h1>
         </Row>{" "}
         <Row
+          className='d-flex justify-content-center align-items-center'
           style={{
-            width: "100%",
-            backgroundColor: "rgba(0,0,0,0.5)",
-            marginTop: "0",
+            width: "60vw",
+            backgroundColor: "#E7DAC0",
+            textAlign: "center",
+            justifyContent: "center",
+            color: "black",
+            padding: "10px",
+            borderRadius: "10px",
           }}
           className='d-flex justify-content-center align-items-center'
         >
-          <p style={{ color: "white" }}>
-            {funPhrases[Math.floor(Math.random() * funPhrases.length)]}
-          </p>
+          {funPhrases[Math.floor(Math.random() * funPhrases.length)]}
         </Row>
       </Row>
 

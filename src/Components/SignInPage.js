@@ -1,71 +1,84 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
+import GreenHills from "../assets/Rectangle4.svg";
 
 const SignInPage = (props) => {
   return (
     <React.Fragment>
-      <Row
-        className='d-flex justify-content-center align-items-center'
+      <div
         style={{
-          marginTop: "5vh",
-          backgroundImage: "url(https://wallpaperaccess.com/full/171177.jpg)",
+          backgroundImage: `url(${GreenHills})`,
           backgroundSize: "cover",
+          backgroundPosition: "5% 40vh",
+          height: "100vh",
           backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-          height: "25vh",
         }}
       >
         <Row
           className='d-flex justify-content-center align-items-center'
           style={{
-            backgroundColor: "rgba(0,0,0,0.7)",
-            color: "white",
-            width: "100%",
-            height: "7vh",
-            fontSize: "5vh",
+            marginTop: "5vh",
+            // backgroundImage: "url(https://wallpaperaccess.com/full/171177.jpg)",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            height: "10vh",
           }}
         >
-          {" "}
-          Welcome!
+          <Row
+            className='d-flex justify-content-center align-items-center'
+            style={{
+              width: "40vw",
+              fontSize: "4vw",
+              backgroundColor: "#E7DAC0",
+              textAlign: "center",
+              justifyContent: "center",
+              padding: "",
+              borderRadius: "10px",
+              color: "white",
+            }}
+          >
+            Welcome!{" "}
+          </Row>
         </Row>
-      </Row>
-      <Container>
-        <Row
-          className='d-flex justify-content-center'
-          style={{ marginTop: "5vh" }}
-        >
-          <Card style={{ width: "18rem" }}>
-            <Card.Body>
-              <Card.Title>Enter Profile Info</Card.Title>
-              <Card.Subtitle className='mb-2 text-muted'></Card.Subtitle>
+        <Container>
+          <Row
+            className='d-flex justify-content-center'
+            style={{ marginTop: "2vh" }}
+          >
+            <Card style={{ width: "20rem" }}>
+              <Card.Body>
+                <Card.Title>Enter Profile Info</Card.Title>
+                <Card.Subtitle className='mb-2 text-muted'></Card.Subtitle>
 
-              <Form style={{ margin: "5vw" }}>
-                <Form.Group controlId='formBasicEmail'>
-                  <Form.Label>Display Name</Form.Label>
-                  <Form.Control />
-                  <Form.Text className='text-muted'>
-                    Enter the name of your glorious creation
-                  </Form.Text>
-                </Form.Group>{" "}
-                <Form.Group controlId='formBasicEmail'>
-                  <Form.Label>Twitch Handle</Form.Label>
-                  <Form.Control />
-                  <Form.Text className='text-muted'>
-                    Enter the name of your glorious creation
-                  </Form.Text>
-                </Form.Group>
-              </Form>
+                <Form style={{ margin: "5vw" }}>
+                  <Form.Group controlId='formBasicEmail'>
+                    <Form.Label>Display Name</Form.Label>
+                    <Form.Control />
+                    <Form.Text className='text-muted'>
+                      Enter the name of your glorious creation
+                    </Form.Text>
+                  </Form.Group>{" "}
+                  <Form.Group controlId='formBasicEmail'>
+                    <Form.Label>Twitch Handle</Form.Label>
+                    <Form.Control />
+                    <Form.Text className='text-muted'>
+                      Enter the name of your glorious creation
+                    </Form.Text>
+                  </Form.Group>
+                </Form>
 
-              <Container>
-                <Row className='d-flex justify-content-center'>
-                  <Button>Submit!</Button>
-                </Row>
-              </Container>
-            </Card.Body>
-          </Card>
-        </Row>
-      </Container>
+                <Container>
+                  <Row className='d-flex justify-content-center'>
+                    <Button>Submit!</Button>
+                  </Row>
+                </Container>
+              </Card.Body>
+            </Card>
+          </Row>
+        </Container>
+      </div>
     </React.Fragment>
   );
 };

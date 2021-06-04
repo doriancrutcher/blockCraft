@@ -5,9 +5,9 @@ import { Carousel, Row, Container } from "react-bootstrap";
 const CraftsIBought = (props) => {
   return (
     <Carousel style={{ width: "80vw" }}>
-      {props.stuffIBought.map((x) => {
+      {props.stuffIBought.map((x, i) => {
         return (
-          <Carousel.Item>
+          <Carousel.Item key={i}>
             <img className='d-block w-100' src={x} alt='First slide' />
             <Carousel.Caption style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
               <Container>
