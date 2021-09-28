@@ -8,6 +8,32 @@ const GoalBlock = goals.GoalBlock;
 const { place_block } = require("mineflayer");
 const { once } = require("events");
 const inventoryViewer = require("mineflayer-web-inventory");
+const nearAPI = require("near-api-js");
+
+// connecting to near blockchain
+
+const CONTRACT_NAME = "fayyr_nft_contract_6.testnet";
+
+const { Account, InMemorySigner, keyStores } = nearAPI;
+
+let near = null;
+let config = {
+  networkId: "testnet",
+  nodeUrl: "https://rpc.testnet.near.org",
+  contractName: CONTRACT_NAME,
+  walletUrl: "https://wallet.testnet.near.org",
+  helperUrl: "https://helper.testnet.near.org",
+  explorerUrl: "https://explorer.testnet.near.org",
+};
+
+const connectToNEAR = async () => {
+  if (near == null) {
+    near = await nearAPI.connect({
+      deps: { keyStore: new keyStores.InMemoryKeyStore() },
+      ...config,
+    });
+  }
+};
 
 // const windows = require("./")("1.8");
 
@@ -46,7 +72,7 @@ const Jessica = mineflayer.createBot({
 });
 const Jerry = mineflayer.createBot({
   host: "localhost",
-  port: "49418",
+  port: "53354",
   username: "Jerry",
 });
 
@@ -71,7 +97,7 @@ const reloadFunction = async (count, uniqueItemsArr) => {
   }
 };
 
-inventoryViewer(Jerry);
+// inventoryViewer(Jerry);
 
 Jerry.loadPlugin(pathfinder);
 
@@ -221,7 +247,24 @@ const JerryMoves = (motion) => {
 // Jerry chat controls
 
 Jerry.on("chat", async (username, message) => {
-  const args = message.split(" ");
+  const words = message.split(" ");
+  connectToNEAR();
+  console.log("user said", words[0]);
+
+  if (words[0] === "connect") {
+    const contractAccount = new Account(near.connection, CONTRACT_NAME);
+    const tokens = await contractAccount.viewFunction(
+      CONTRACT_NAME,
+      "nft_tokens",
+      { from_index: "0", limit: 50 }
+    );
+
+    Jerry.chat(JSON.stringify(tokens));
+  }
+});
+
+Jerry.on("chat", async (username, message) => {
+  const args = message.split("mint ");
   if (args[0] === "item_id") {
     const itemName = args[1];
     const id = Jerry.mcData.itemsByName[itemName].id;
