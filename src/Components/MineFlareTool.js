@@ -72,7 +72,7 @@ const Jessica = mineflayer.createBot({
 });
 const Jerry = mineflayer.createBot({
   host: "localhost",
-  port: "53354",
+  port: "56786",
   username: "Jerry",
 });
 
@@ -251,7 +251,7 @@ Jerry.on("chat", async (username, message) => {
   connectToNEAR();
   console.log("user said", words[0]);
 
-  if (words[0] === "connect") {
+  if (words[0] === "getInfo") {
     const contractAccount = new Account(near.connection, CONTRACT_NAME);
     const tokens = await contractAccount.viewFunction(
       CONTRACT_NAME,
@@ -259,7 +259,7 @@ Jerry.on("chat", async (username, message) => {
       { from_index: "0", limit: 50 }
     );
 
-    Jerry.chat(JSON.stringify(tokens));
+    console.log(tokens[0]);
   }
 });
 
